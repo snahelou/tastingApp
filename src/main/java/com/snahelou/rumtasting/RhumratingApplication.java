@@ -32,13 +32,20 @@ public class RhumratingApplication extends WebSecurityConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 		http
                 .csrf().disable()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.and()
-				.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/tasting/**").access("#oauth2.hasScope('read')")
-				.antMatchers(HttpMethod.PUT, "/tasting/**").access("#oauth2.hasScope('write')")
-				.antMatchers(HttpMethod.DELETE, "/tasting/**").access("#oauth2.hasScope('write')")
-				.antMatchers(HttpMethod.POST, "/tasting/**").access("#oauth2.hasScope('write')");
+                .antMatcher("/**")
+                .authorizeRequests()
+                .antMatchers("/", "/login**", "/ping**")
+                .permitAll()
+                .anyRequest()
+                .authenticated();
+
+//				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//				.and()
+//				.authorizeRequests()
+//				.antMatchers(HttpMethod.GET, "/tasting/**").access("#oauth2.hasScope('read')")
+//				.antMatchers(HttpMethod.PUT, "/tasting/**").access("#oauth2.hasScope('write')")
+//				.antMatchers(HttpMethod.DELETE, "/tasting/**").access("#oauth2.hasScope('write')")
+//				.antMatchers(HttpMethod.POST, "/tasting/**").access("#oauth2.hasScope('write')");
 	}
 
     @Value("${spring.datasource.url}")

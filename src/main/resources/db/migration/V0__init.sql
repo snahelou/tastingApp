@@ -11,6 +11,10 @@ CREATE TABLE tasting
   id uuid,
   name text NOT NULL,
   country text NOT NULL,
+  age int not null,
+  distilled int,
+  bottled int,
+  mark int,
   type text NOT NULL,
   PRIMARY KEY (id))
 WITH (OIDS = FALSE);

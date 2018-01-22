@@ -1,5 +1,7 @@
 package com.snahelou.rumtasting.controller.dto;
 
+import com.snahelou.rumtasting.controller.dto.enums.AromaEnum;
+import com.snahelou.rumtasting.controller.dto.enums.TypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +17,12 @@ public class TastingDTO implements Serializable{
 
     private String name;
     private String country;
-    private String type;
+    private TypeEnum type;
+    private Integer distilled;
+    private Integer bottled;
+    private Integer mark;
+    private Integer age;
+    private AromaRateType noiseAroma;
+    private AromaRateType tasteAroma;
 
 }

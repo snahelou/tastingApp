@@ -17,6 +17,12 @@ public class TastingDTOConverter {
                 .withId(id)
                 .withName(dto.getName())
                 .withType(dto.getType())
+                .withAge(dto.getAge())
+                .withBottled(dto.getBottled())
+                .withDistilled(dto.getDistilled())
+                .withMark(dto.getMark())
+                .withNoiseAroma(dto.getNoiseAroma())
+                .withTasteAroma(dto.getTasteAroma())
                 .withCountry(dto.getCountry());
     }
 
@@ -24,6 +30,12 @@ public class TastingDTOConverter {
         return dto == null ? null : new TastingEntity()
                 .withName(dto.getName())
                 .withType(dto.getType())
+                .withAge(dto.getAge())
+                .withBottled(dto.getBottled())
+                .withDistilled(dto.getDistilled())
+                .withMark(dto.getMark())
+                .withNoiseAroma(dto.getNoiseAroma())
+                .withTasteAroma(dto.getTasteAroma())
                 .withCountry(dto.getCountry());
     }
 
@@ -31,6 +43,12 @@ public class TastingDTOConverter {
         return e == null ? null : new TastingDTO()
                 .withName(e.getName())
                 .withType(e.getType())
+                .withAge(e.getAge())
+                .withBottled(e.getBottled())
+                .withDistilled(e.getDistilled())
+                .withMark(e.getMark())
+                .withNoiseAroma(e.getNoiseAroma())
+                .withTasteAroma(e.getTasteAroma())
                 .withCountry(e.getCountry());
     }
 

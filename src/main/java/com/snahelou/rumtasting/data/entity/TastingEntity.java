@@ -1,6 +1,8 @@
 package com.snahelou.rumtasting.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.snahelou.rumtasting.controller.dto.AromaRateType;
+import com.snahelou.rumtasting.controller.dto.enums.TypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,13 +31,34 @@ public class TastingEntity implements Serializable {
     @Type(type="pg-uuid")
     private UUID id;
 
-    @Column(name = "name")
+    @Column(name = "name",nullable = false)
     private String name;
 
-    @Column(name = "country")
+    @Column(name = "country",nullable = false)
     private String country;
 
-    @Column(name = "type")
-    private String type;
+    @Column(name = "type",nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TypeEnum type;
+
+    @Column(name = "distilled")
+    private Integer distilled;
+
+    @Column(name = "bottled")
+    private Integer bottled;
+
+    @Column(name = "mark",nullable = false)
+    private Integer mark;
+
+    @Column(name = "age",nullable = false)
+    private Integer age;
+
+    //TODO jsonb?
+    @Column(name = "noise_aroma",nullable = false)
+    private AromaRateType noiseAroma;
+
+    //TODO jsonb?
+    @Column(name = "taste_aroma",nullable = false)
+    private AromaRateType tasteAroma;
 
 }
