@@ -1,7 +1,7 @@
-package com.personnal.rhumrating.controller.converter;
+package com.snahelou.rumtasting.controller.converter;
 
-import com.personnal.rhumrating.controller.dto.TastingDTO;
-import com.personnal.rhumrating.data.entity.TastingEntity;
+import com.snahelou.rumtasting.controller.dto.TastingDTO;
+import com.snahelou.rumtasting.data.entity.TastingEntity;
 import lombok.experimental.UtilityClass;
 
 import java.util.Collections;

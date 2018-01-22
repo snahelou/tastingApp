@@ -1,8 +1,8 @@
-package com.personnal.rhumrating.service;
+package com.snahelou.rumtasting.service;
 
-import com.personnal.rhumrating.controller.dto.TastingDTO;
-import com.personnal.rhumrating.data.entity.TastingEntity;
-import com.personnal.rhumrating.data.repository.TastingRepository;
+import com.snahelou.rumtasting.controller.dto.TastingDTO;
+import com.snahelou.rumtasting.data.entity.TastingEntity;
+import com.snahelou.rumtasting.data.repository.TastingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,9 +24,9 @@ public class TastingService {
         this.repo = repo;
     }
 
-    public void create (TastingEntity e){
+    public TastingEntity create (TastingEntity e){
 //        validate(e);
-        repo.save(e);
+        return repo.save(e);
     }
 
     public Optional<TastingEntity> read (UUID id){
@@ -42,7 +42,7 @@ public class TastingService {
         Optional<TastingEntity> entity = read(id);
         if (entity.isPresent()){
 //            validate(request);
-            return Optional.of(repo.save(entity.get()));
+            return Optional.of(repo.save(request));
         }
         return Optional.empty();
     }

@@ -1,7 +1,7 @@
-package com.personnal.rhumrating.data.repository;
+package com.snahelou.rumtasting.data.repository;
 
 
-import com.personnal.rhumrating.data.entity.TastingEntity;
+import com.snahelou.rumtasting.data.entity.TastingEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

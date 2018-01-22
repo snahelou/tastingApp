@@ -1,4 +1,4 @@
-package com.personnal.rhumrating.data.entity;
+package com.snahelou.rumtasting.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

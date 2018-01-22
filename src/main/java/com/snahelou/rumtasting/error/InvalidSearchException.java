@@ -1,4 +1,4 @@
-package com.personnal.rhumrating.error;
+package com.snahelou.rumtasting.error;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

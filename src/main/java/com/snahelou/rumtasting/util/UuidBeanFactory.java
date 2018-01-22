@@ -1,4 +1,4 @@
-package com.personnal.rhumrating.util;
+package com.snahelou.rumtasting.util;
 
 import java.util.UUID;
 import org.dozer.BeanFactory;

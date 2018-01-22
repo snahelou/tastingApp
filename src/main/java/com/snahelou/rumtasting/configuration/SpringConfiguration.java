@@ -1,8 +1,8 @@
-package com.personnal.rhumrating.configuration;
+package com.snahelou.rumtasting.configuration;
 
 import java.util.UUID;
 
-import com.personnal.rhumrating.util.UuidBeanFactory;
+import com.snahelou.rumtasting.util.UuidBeanFactory;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;

@@ -1,12 +1,14 @@
-package com.personnal.rhumrating.controller;
+package com.snahelou.rumtasting.controller;
 
-import com.personnal.rhumrating.controller.converter.TastingDTOConverter;
-import com.personnal.rhumrating.controller.dto.TastingDTO;
-import com.personnal.rhumrating.data.entity.TastingEntity;
-import com.personnal.rhumrating.error.InvalidSearchException;
-import com.personnal.rhumrating.service.TastingService;
+import com.snahelou.rumtasting.controller.converter.TastingDTOConverter;
+import com.snahelou.rumtasting.controller.dto.TastingDTO;
+import com.snahelou.rumtasting.data.entity.TastingEntity;
+import com.snahelou.rumtasting.error.InvalidSearchException;
+import com.snahelou.rumtasting.service.TastingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,9 +38,14 @@ public class TastingController {
                     consumes = MediaType.APPLICATION_JSON_VALUE,
                     produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody TastingDTO request){
+    @ApiResponses(
+            @ApiResponse(code = 201, response = Override.class,
+                    message = "Override created successfully"))
+
+    public TastingEntity create(@RequestBody TastingDTO request){
         TastingEntity entity = TastingDTOConverter.toEntity(request);
         service.create(entity);
+        return entity;
     }
 
     @ApiOperation(value = "Read a tasting.")
@@ -55,7 +62,7 @@ public class TastingController {
         }
     }
 
-    @ApiOperation(value = "Udate a tasting.")
+    @ApiOperation(value = "Update a tasting.")
     @RequestMapping(method = RequestMethod.PUT, value = TASTING_BY_ID_URL,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE )
@@ -66,6 +73,7 @@ public class TastingController {
         TastingEntity entity = TastingDTOConverter.toEntity(request);
         Optional<TastingEntity> result = service.update(id, entity);
         if(result.isPresent()){
+
             return TastingDTOConverter.toDTO(result.get());
         }else{
             throw new InvalidSearchException("Tasting not found!");

@@ -1,4 +1,4 @@
-package com.personnal.rhumrating.controller.dto;
+package com.snahelou.rumtasting.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
