@@ -10,9 +10,17 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.service.OAuth;
 
+import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Api(   value = "Tasting API",
@@ -26,6 +34,7 @@ public class TastingController {
 
     @Autowired
     private TastingService service;
+
 
     @ApiOperation(
             value = "Create a tasting.",
@@ -86,7 +95,14 @@ public class TastingController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<Tasting> read(){
+        String email = ((Map<String,String>)((OAuth2Authentication)SecurityContextHolder.getContext().getAuthentication()).getUserAuthentication().getDetails()).get("email");
+
+        System.out.println(email);
         return service.readAll();
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/login")
+    public String ping(){
+        return "pong";
+    }
 }

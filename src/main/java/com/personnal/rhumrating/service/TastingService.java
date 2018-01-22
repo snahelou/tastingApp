@@ -13,7 +13,6 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 
@@ -35,7 +34,6 @@ public class TastingService {
         validate(request);
         TastingEntity entity = mapper.map(request,TastingEntity.class);
         entity = repo.save(entity);
-
         Tasting t = mapper.map(entity,Tasting.class);
         return t;
     }
