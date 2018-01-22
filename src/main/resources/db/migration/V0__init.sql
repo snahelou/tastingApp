@@ -15,6 +15,8 @@ CREATE TABLE tasting
   distilled int,
   bottled int,
   mark int,
+  taste_aroma jsonb,
+  noise_aroma jsonb,
   type text NOT NULL,
   PRIMARY KEY (id))
 WITH (OIDS = FALSE);

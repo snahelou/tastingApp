@@ -1,6 +1,7 @@
 package com.snahelou.rumtasting.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.snahelou.rumtasting.controller.dto.AromaRate;
 import com.snahelou.rumtasting.controller.dto.AromaRateType;
 import com.snahelou.rumtasting.controller.dto.enums.TypeEnum;
 import lombok.AllArgsConstructor;
@@ -8,10 +9,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Wither;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -24,6 +26,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @JsonInclude(NON_NULL)
 @Table(name = "tasting")
 @Wither
+@TypeDef(name = "AromaRateType", typeClass = AromaRateType.class)
 public class TastingEntity implements Serializable {
     @Id
     @GenericGenerator(name ="uuid-gen",strategy = "uuid2")
@@ -53,12 +56,16 @@ public class TastingEntity implements Serializable {
     @Column(name = "age",nullable = false)
     private Integer age;
 
-    //TODO jsonb?
     @Column(name = "noise_aroma",nullable = false)
-    private AromaRateType noiseAroma;
+    @Type(type = "com.snahelou.rumtasting.controller.dto.AromaRateType",
+            parameters = {@Parameter(name = "className",
+                    value = "com.snahelou.rumtasting.controller.dto.AromaRate")})
+    private AromaRate noiseAroma;
 
-    //TODO jsonb?
     @Column(name = "taste_aroma",nullable = false)
-    private AromaRateType tasteAroma;
+    @Type(type = "com.snahelou.rumtasting.controller.dto.AromaRateType",
+            parameters = {@Parameter(name = "className",
+                    value = "com.snahelou.rumtasting.controller.dto.AromaRate")})
+    private AromaRate tasteAroma;
 
 }

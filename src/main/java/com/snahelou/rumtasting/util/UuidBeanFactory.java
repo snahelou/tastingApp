@@ -1,7 +1,8 @@
 package com.snahelou.rumtasting.util;
 
-import java.util.UUID;
 import org.dozer.BeanFactory;
+
+import java.util.UUID;
 
 
 public class UuidBeanFactory implements BeanFactory {
