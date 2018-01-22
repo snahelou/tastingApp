@@ -1,30 +1,25 @@
 package com.personnal.rhumrating.controller;
 
-import com.personnal.rhumrating.data.entity.Tasting;
-import com.personnal.rhumrating.data.entity.TastingRequest;
+import com.personnal.rhumrating.controller.converter.TastingDTOConverter;
+import com.personnal.rhumrating.controller.dto.TastingDTO;
+import com.personnal.rhumrating.data.entity.TastingEntity;
+import com.personnal.rhumrating.error.InvalidSearchException;
 import com.personnal.rhumrating.service.TastingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.service.OAuth;
 
-import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @Api(   value = "Tasting API",
-        description = "Tasting API",
         produces = "application/json",
         tags= {"API"})
 @RestController
@@ -36,42 +31,45 @@ public class TastingController {
     private TastingService service;
 
 
-    @ApiOperation(
-            value = "Create a tasting.",
-            response = Tasting.class)
-    @ApiResponses(
-            @ApiResponse(code = 201, response = Override.class,
-                         message = "Override created successfully"))
+    @ApiOperation(value = "Create a tasting.")
     @RequestMapping(method = RequestMethod.POST, value = TASTING_URL,
                     consumes = MediaType.APPLICATION_JSON_VALUE,
                     produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public Tasting create(@RequestBody TastingRequest request){
-        return service.create(request);
+    public void create(@RequestBody TastingDTO request){
+        TastingEntity entity = TastingDTOConverter.toEntity(request);
+        service.create(entity);
     }
 
-    @ApiOperation(
-            value = "Read a tasting.",
-            response = Tasting.class)
+    @ApiOperation(value = "Read a tasting.")
     @RequestMapping(method = RequestMethod.GET, value = TASTING_BY_ID_URL,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Tasting read(@PathVariable("id") UUID id){
-        return service.read(id);
+    public TastingDTO read(@PathVariable("id") UUID id){
+
+        Optional<TastingEntity> result = service.read(id);
+        if(result.isPresent()){
+            return  TastingDTOConverter.toDTO(result.get());
+        }else{
+            throw new InvalidSearchException("Tasting not found!");
+        }
     }
 
-    @ApiOperation(
-            value = "Udate a tasting.",
-            response = Tasting.class)
-    @ApiResponses(
-            @ApiResponse(code = 201, response = Tasting.class,
-                    message = "Updated book successfully"))
+    @ApiOperation(value = "Udate a tasting.")
     @RequestMapping(method = RequestMethod.PUT, value = TASTING_BY_ID_URL,
             consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+            produces = MediaType.APPLICATION_JSON_VALUE )
     @ResponseStatus(HttpStatus.CREATED)
-    public Tasting update(@PathVariable("id")UUID id, @RequestBody TastingRequest request){
-        return service.update(id,request);
+    public TastingDTO fullUpdate(@PathVariable("id")UUID id,
+                             @RequestBody TastingDTO request){
+
+        TastingEntity entity = TastingDTOConverter.toEntity(request);
+        Optional<TastingEntity> result = service.update(id, entity);
+        if(result.isPresent()){
+            return TastingDTOConverter.toDTO(result.get());
+        }else{
+            throw new InvalidSearchException("Tasting not found!");
+        }
     }
 
     @ApiOperation(value = "Deletes a Tasting by ID.")
@@ -88,17 +86,14 @@ public class TastingController {
         service.deleteAll();
     }
 
-    @ApiOperation(
-            value = "Read all tasting.",
-            response = Tasting.class)
+    @ApiOperation(value = "Read all tasting.")
     @RequestMapping(method = RequestMethod.GET, value = TASTING_URL,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<Tasting> read(){
+    public List<TastingDTO> read(){
         String email = ((Map<String,String>)((OAuth2Authentication)SecurityContextHolder.getContext().getAuthentication()).getUserAuthentication().getDetails()).get("email");
 
-        System.out.println(email);
-        return service.readAll();
+        return TastingDTOConverter.toDTOList(service.readAll());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/login")

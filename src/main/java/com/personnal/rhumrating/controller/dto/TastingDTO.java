@@ -1,19 +1,20 @@
-package com.personnal.rhumrating.data.entity;
+package com.personnal.rhumrating.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Wither;
 
-import java.util.UUID;
+import java.io.Serializable;
 
 @Data
-@NoArgsConstructor
+@Wither
 @AllArgsConstructor
-public class Tasting {
+@NoArgsConstructor
+public class TastingDTO implements Serializable{
 
     private String name;
     private String country;
     private String type;
 
 }
-
