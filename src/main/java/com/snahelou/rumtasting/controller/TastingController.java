@@ -70,7 +70,7 @@ public class TastingController {
     public TastingDTO fullUpdate(@PathVariable("id")UUID id,
                              @RequestBody TastingDTO request){
 
-        TastingEntity entity = TastingDTOConverter.toEntity(request);
+        TastingEntity entity = TastingDTOConverter.copyEntity(id,request);
         Optional<TastingEntity> result = service.update(id, entity);
         if(result.isPresent()){
 

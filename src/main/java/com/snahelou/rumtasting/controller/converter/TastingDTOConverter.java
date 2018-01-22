@@ -6,10 +6,19 @@ import lombok.experimental.UtilityClass;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @UtilityClass
 public class TastingDTOConverter {
+
+    public static TastingEntity copyEntity(UUID id, TastingDTO dto){
+        return dto == null ? null : new TastingEntity()
+                .withId(id)
+                .withName(dto.getName())
+                .withType(dto.getType())
+                .withCountry(dto.getCountry());
+    }
 
     public static TastingEntity toEntity(TastingDTO dto){
         return dto == null ? null : new TastingEntity()
