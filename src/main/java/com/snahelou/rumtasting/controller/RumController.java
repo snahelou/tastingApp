@@ -1,10 +1,10 @@
 package com.snahelou.rumtasting.controller;
 
-import com.snahelou.rumtasting.controller.converter.TastingDTOConverter;
-import com.snahelou.rumtasting.controller.dto.TastingDTO;
-import com.snahelou.rumtasting.data.entity.TastingEntity;
+import com.snahelou.rumtasting.controller.converter.RumDTOConverter;
+import com.snahelou.rumtasting.controller.dto.RumDTO;
+import com.snahelou.rumtasting.data.entity.RumEntity;
 import com.snahelou.rumtasting.error.InvalidSearchException;
-import com.snahelou.rumtasting.service.TastingService;
+import com.snahelou.rumtasting.service.RumService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -21,16 +21,16 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-@Api(   value = "Tasting API",
+@Api(   value = "Rum API",
         produces = "application/json",
-        tags= {"API"})
+        tags= {"Rum"})
 @RestController
-public class TastingController {
+public class RumController {
     public static final String TASTING_URL = "/tastings";
     public static final String TASTING_BY_ID_URL = TASTING_URL + "/{id}";
 
     @Autowired
-    private TastingService service;
+    private RumService service;
 
 
     @ApiOperation(value = "Create a tasting.")
@@ -42,8 +42,8 @@ public class TastingController {
             @ApiResponse(code = 201, response = Override.class,
                     message = "Override created successfully"))
 
-    public TastingEntity create(@RequestBody TastingDTO request){
-        TastingEntity entity = TastingDTOConverter.toEntity(request);
+    public RumEntity create(@RequestBody RumDTO request){
+        RumEntity entity = RumDTOConverter.toEntity(request);
         service.create(entity);
         return entity;
     }
@@ -52,11 +52,11 @@ public class TastingController {
     @RequestMapping(method = RequestMethod.GET, value = TASTING_BY_ID_URL,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public TastingDTO read(@PathVariable("id") UUID id){
+    public RumDTO read(@PathVariable("id") UUID id){
 
-        Optional<TastingEntity> result = service.read(id);
+        Optional<RumEntity> result = service.read(id);
         if(result.isPresent()){
-            return  TastingDTOConverter.toDTO(result.get());
+            return  RumDTOConverter.toDTO(result.get());
         }else{
             throw new InvalidSearchException("Tasting not found!");
         }
@@ -67,14 +67,14 @@ public class TastingController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE )
     @ResponseStatus(HttpStatus.CREATED)
-    public TastingDTO fullUpdate(@PathVariable("id")UUID id,
-                             @RequestBody TastingDTO request){
+    public RumDTO fullUpdate(@PathVariable("id")UUID id,
+                             @RequestBody RumDTO request){
 
-        TastingEntity entity = TastingDTOConverter.copyEntity(id,request);
-        Optional<TastingEntity> result = service.update(id, entity);
+        RumEntity entity = RumDTOConverter.copyEntity(id,request);
+        Optional<RumEntity> result = service.update(id, entity);
         if(result.isPresent()){
 
-            return TastingDTOConverter.toDTO(result.get());
+            return RumDTOConverter.toDTO(result.get());
         }else{
             throw new InvalidSearchException("Tasting not found!");
         }
@@ -98,10 +98,9 @@ public class TastingController {
     @RequestMapping(method = RequestMethod.GET, value = TASTING_URL,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<TastingDTO> read(){
+    public List<RumDTO> read(){
         String email = ((Map<String,String>)((OAuth2Authentication)SecurityContextHolder.getContext().getAuthentication()).getUserAuthentication().getDetails()).get("email");
-
-        return TastingDTOConverter.toDTOList(service.readAll());
+        return RumDTOConverter.toDTOList(service.readAll());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/login")

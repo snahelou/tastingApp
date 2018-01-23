@@ -5,20 +5,39 @@ GRANT SELECT ON ALL TABLES IN SCHEMA rhum TO rhum;
 
 SET search_path TO rhum;
 
-
-CREATE TABLE tasting
+CREATE TABLE RUM
 (
   id uuid,
   name text NOT NULL,
   country text NOT NULL,
-  age int not null,
+  type text NOT NULL,
   distilled int,
   bottled int,
-  mark int,
-  taste_aroma jsonb,
-  noise_aroma jsonb,
-  type text NOT NULL,
-  PRIMARY KEY (id))
-WITH (OIDS = FALSE);
+  age int not null,
+  PRIMARY KEY (id)
+);
 
-ALTER TABLE tasting OWNER to rhum;
+ALTER TABLE RUM OWNER to rhum;
+
+CREATE TABLE AROMA
+(
+  id uuid,
+  vegetal int NOT NULL,
+  floral int NOT NULL,
+  fruit int NOT NULL,
+  wooded int NOT NULL,
+  PRIMARY KEY (id)
+);
+
+ALTER TABLE AROMA OWNER to rhum;
+
+CREATE TABLE RATING
+(
+  id uuid,
+  rum_id uuid,
+  mark int,
+  comment text,
+  PRIMARY KEY (id)
+);
+
+ALTER TABLE RATING OWNER to rhum;

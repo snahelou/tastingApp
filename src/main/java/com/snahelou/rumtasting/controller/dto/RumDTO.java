@@ -7,12 +7,13 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Wither;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Wither
 @AllArgsConstructor
 @NoArgsConstructor
-public class TastingDTO implements Serializable{
+public class RumDTO implements Serializable{
 
     private String name;
     private String country;
@@ -21,7 +22,7 @@ public class TastingDTO implements Serializable{
     private Integer bottled;
     private Integer mark;
     private Integer age;
-    private AromaRate noiseAroma;
-    private AromaRate tasteAroma;
+    private List<AromaRate> noiseAroma;
+    private List<AromaRate> tasteAroma;
 
 }
