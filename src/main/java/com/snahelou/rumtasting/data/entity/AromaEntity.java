@@ -1,5 +1,6 @@
 package com.snahelou.rumtasting.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.snahelou.rumtasting.controller.dto.enums.AromaEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,10 +13,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(NON_NULL)
 @Table(name = "AROMA")
 @Wither
 public class AromaEntity implements Serializable {
@@ -24,12 +28,14 @@ public class AromaEntity implements Serializable {
     @GenericGenerator(name ="uuid-gen",strategy = "uuid2")
     @GeneratedValue(generator = "uuid-gen")
     @Type(type="pg-uuid")
-    @Column(name = "id")
     private UUID id;
 
     @Column(name = "name")
-//    @Convert(converter = AromaConverter.class)
     @Enumerated(EnumType.STRING)
     private AromaEnum name;
 
+    @Override
+    public String toString(){
+        return name.getAroma();
+    }
 }

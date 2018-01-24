@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Wither;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Wither
@@ -19,7 +20,7 @@ public class RumDTO implements Serializable{
     private TypeEnum type;
     private Integer distilled;
     private Integer bottled;
-    private Integer mark;
     private Integer age;
+    private List<RatingDTO> ratingList;
 
 }

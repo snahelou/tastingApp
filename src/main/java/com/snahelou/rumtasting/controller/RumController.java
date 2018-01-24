@@ -94,13 +94,21 @@ public class RumController {
         service.deleteAll();
     }
 
-    @ApiOperation(value = "Read all tasting.")
+    @ApiOperation(value = "Get all rums.")
     @RequestMapping(method = RequestMethod.GET, value = TASTING_URL,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<RumDTO> read(){
-        String email = ((Map<String,String>)((OAuth2Authentication)SecurityContextHolder.getContext().getAuthentication()).getUserAuthentication().getDetails()).get("email");
-        return RumDTOConverter.toDTOList(service.readAll());
+    public List<RumDTO> getAllRums(){
+//        String email = ((Map<String,String>)((OAuth2Authentication)SecurityContextHolder.getContext().getAuthentication()).getUserAuthentication().getDetails()).get("email");
+        return RumDTOConverter.toDTOList(service.readAll(), false);
+    }
+
+    @ApiOperation(value = "Read all tasting reviews.")
+    @RequestMapping(method = RequestMethod.GET, value = "/tastings/reviews",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<RumDTO> getAllRumReviews(){
+        return RumDTOConverter.toDTOList(service.readAll(), true);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/login")

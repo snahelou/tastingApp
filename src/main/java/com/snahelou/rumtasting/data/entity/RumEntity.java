@@ -10,6 +10,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -45,5 +46,8 @@ public class RumEntity implements Serializable {
     @Column(name = "age",nullable = false)
     private Integer age;
 
+    @OneToMany
+    @JoinColumn(name = "rum_id", referencedColumnName = "id")
+    private List<RatingEntity> ratingList;
 
 }

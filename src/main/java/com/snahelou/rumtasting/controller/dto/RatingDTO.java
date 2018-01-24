@@ -14,13 +14,9 @@ import java.util.List;
 @NoArgsConstructor
 public class RatingDTO implements Serializable{
 
-    private RumDTO rum;
-
     private Integer mark;
 
     private String comment;
 
-    private AromaRateDTO noseAroma;
-
-    private List<AromaRateDTO> tasteAroma;
+    private List<AromaRateDTO> noseAroma;
 }

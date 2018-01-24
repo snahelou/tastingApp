@@ -43,7 +43,21 @@ public class RumDTOConverter {
                 .withCountry(e.getCountry());
     }
 
-    public static List<RumDTO> toDTOList(List<RumEntity> list){
+    public static RumDTO toDTOWithReview(RumEntity e){
+        return e == null ? null : new RumDTO()
+                .withName(e.getName())
+                .withType(e.getType())
+                .withAge(e.getAge())
+                .withBottled(e.getBottled())
+                .withDistilled(e.getDistilled())
+                .withCountry(e.getCountry())
+                .withRatingList(RatingDTOConverter.toDTOList(e.getRatingList()));
+    }
+
+    public static List<RumDTO> toDTOList(List<RumEntity> list, boolean needReviews){
+        if(needReviews){
+            return list.isEmpty() ? Collections.emptyList() : list.stream().map(RumDTOConverter::toDTOWithReview).collect(Collectors.toList());
+        }
         return list.isEmpty() ? Collections.emptyList() : list.stream().map(RumDTOConverter::toDTO).collect(Collectors.toList());
     }
 }

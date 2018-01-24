@@ -2,6 +2,7 @@ package com.snahelou.rumtasting.data.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Wither;
 import org.hibernate.annotations.GenericGenerator;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Table(name = "RATING")
 @Wither
+@EqualsAndHashCode(of = {"rum"})
 public class RatingEntity implements Serializable {
 
     @Id
@@ -29,25 +31,20 @@ public class RatingEntity implements Serializable {
     @JoinColumn(name = "rum_id", referencedColumnName = "id")
     private RumEntity rum;
 
-//    @OneToMany(targetEntity = AromaEntity.class)
-//    @MapKeyJoinColumn(name = "aroma_id")
-//    private Map<AromaEntity, Integer> nose;
-
     @ManyToOne
-    @JoinColumn(name = "aroma_id", referencedColumnName = "id")
-    private AromaEntity aromaList;
+    @JoinColumn(name = "aroma_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private AromaEntity aroma;
 
-//    @Column(name = "aroma_id")
-//    private UUID noseId;
+    @Column(name = "aroma_id")
+    private UUID aromaId;
 
     @Column(name = "aroma_mark")
-    private Integer noseMark;
+    private Integer aromaMark;
 
     @Column
     private Integer mark;
 
     @Column
     private String comment;
-
 
 }
