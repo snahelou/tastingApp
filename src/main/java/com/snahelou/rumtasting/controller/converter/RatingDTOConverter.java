@@ -24,7 +24,8 @@ public class RatingDTOConverter {
         return e == null ? null : new RatingDTO()
                 .withComment(e.getComment())
                 .withMark(e.getMark())
-                .withRum(RumDTOConverter.toDTO(e.getRum()));
+                .withRum(RumDTOConverter.toDTO(e.getRum()))
+                .withNoseAroma(AromaRateDTOConverter.toDTO(e.getAromaList(), e.getNoseMark()));
     }
 
     public static List<RatingDTO> toDTOList(List<RatingEntity> list){

@@ -15,7 +15,17 @@ public enum AromaEnum {
     AromaEnum(String aroma){
         this.aroma = aroma;
     }
+
     public String getAroma(){
         return this.aroma;
+    }
+
+    public static AromaEnum fromString(String s) {
+        for (AromaEnum aroma : values()) {
+            if (aroma.toString().equals(s)) {
+                return aroma;
+            }
+        }
+        return null;
     }
 }

@@ -20,8 +20,7 @@ import java.util.List;
 @RestController
 public class RatingController {
 
-    public static final String RATING_URL = "/ratings";
-    public static final String TASTING_BY_ID_URL = RATING_URL + "/{id}";
+    private static final String RATING_URL = "/ratings";
 
     @Autowired
     private RatingService service;

@@ -1,6 +1,5 @@
 package com.snahelou.rumtasting.data.entity;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,13 +11,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(NON_NULL)
 @Table(name = "RATING")
 @Wither
 public class RatingEntity implements Serializable {
@@ -30,14 +26,22 @@ public class RatingEntity implements Serializable {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "rumId", referencedColumnName = "id")
+    @JoinColumn(name = "rum_id", referencedColumnName = "id")
     private RumEntity rum;
 
-//    @Column
-//    private AromaEntity nose;
-//
-//    @Column
-//    private AromaEntity mouth;
+//    @OneToMany(targetEntity = AromaEntity.class)
+//    @MapKeyJoinColumn(name = "aroma_id")
+//    private Map<AromaEntity, Integer> nose;
+
+    @ManyToOne
+    @JoinColumn(name = "aroma_id", referencedColumnName = "id")
+    private AromaEntity aromaList;
+
+//    @Column(name = "aroma_id")
+//    private UUID noseId;
+
+    @Column(name = "aroma_mark")
+    private Integer noseMark;
 
     @Column
     private Integer mark;

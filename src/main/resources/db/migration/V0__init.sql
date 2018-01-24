@@ -22,10 +22,7 @@ ALTER TABLE RUM OWNER to rhum;
 CREATE TABLE AROMA
 (
   id uuid,
-  vegetal int NOT NULL,
-  floral int NOT NULL,
-  fruit int NOT NULL,
-  wooded int NOT NULL,
+  name text,
   PRIMARY KEY (id)
 );
 
@@ -37,6 +34,8 @@ CREATE TABLE RATING
   rum_id uuid,
   mark int,
   comment text,
+  aroma_id uuid,
+  aroma_mark int,
   PRIMARY KEY (id)
 );
 

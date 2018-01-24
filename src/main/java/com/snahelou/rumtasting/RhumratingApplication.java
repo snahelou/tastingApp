@@ -28,14 +28,14 @@ public class RhumratingApplication extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http
-                .csrf().disable()
-                .antMatcher("/**")
-                .authorizeRequests()
-                .antMatchers("/", "/login**", "/ping**")
-                .permitAll()
-                .anyRequest()
-                .authenticated();
+//		http
+//                .csrf().disable()
+//                .antMatcher("/**")
+//                .authorizeRequests()
+//                .antMatchers("/", "/login**", "/ping**")
+//                .permitAll()
+//                .anyRequest()
+//                .authenticated();
 
 //				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 //				.and()
@@ -47,7 +47,7 @@ public class RhumratingApplication extends WebSecurityConfigurerAdapter {
 	}
 
     @Value("${spring.datasource.url}")
-    private String request;
+    private String REQUEST;
 
 	public static void main(String[] args) {
 	    SpringApplication.run(RhumratingApplication.class, args);

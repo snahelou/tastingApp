@@ -1,6 +1,5 @@
 package com.snahelou.rumtasting.data.entity;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.snahelou.rumtasting.controller.dto.enums.TypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,16 +12,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(NON_NULL)
 @Table(name = "RUM")
 @Wither
 public class RumEntity implements Serializable {
+
     @Id
     @GenericGenerator(name ="uuid-gen",strategy = "uuid2")
     @GeneratedValue(generator = "uuid-gen")

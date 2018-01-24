@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Wither;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Wither
@@ -18,4 +19,8 @@ public class RatingDTO implements Serializable{
     private Integer mark;
 
     private String comment;
+
+    private AromaRateDTO noseAroma;
+
+    private List<AromaRateDTO> tasteAroma;
 }
